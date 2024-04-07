@@ -14,6 +14,14 @@ rbtree *new_rbtree(void) {
 void delete_rbtree(rbtree *t) {
   // TODO: reclaim the tree nodes's memory
   free(t);
+  
+  //postorder 함수로 만들고
+  
+  
+  // free(t->root);
+
+
+  free(t->nil);
 }
 
 node_t *rbtree_insert(rbtree *t, const key_t key) {
