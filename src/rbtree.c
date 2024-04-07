@@ -1,16 +1,27 @@
 #include "rbtree.h"
-
 #include <stdlib.h>
 
 rbtree *new_rbtree(void) {
   rbtree *p = (rbtree *)calloc(1, sizeof(rbtree));
   // TODO: initialize struct if needed
-  return p;
+  struct node_t *nil_node = (node_t *)calloc(1, sizeof(node_t));
+  nil_node->color = RBTREE_BLACK ;
+  p->nil = nil_node;
+  p->root = nil_node;
+  return  p;
 }
 
 void delete_rbtree(rbtree *t) {
   // TODO: reclaim the tree nodes's memory
   free(t);
+  
+  //postorder 함수로 만들고
+  
+  
+  // free(t->root);
+
+
+  free(t->nil);
 }
 
 node_t *rbtree_insert(rbtree *t, const key_t key) {
