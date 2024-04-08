@@ -6,22 +6,29 @@ rbtree *new_rbtree(void) {
   // TODO: initialize struct if needed
   struct node_t *nil_node = (node_t *)calloc(1, sizeof(node_t));
   nil_node->color = RBTREE_BLACK ;
+
   p->nil = nil_node;
   p->root = nil_node;
   return p;
 }
 
+void postorder(struct node_t* node, rbtree* t){
+  if (node->left != t->nil){
+    postorder(node->left, t);
+  }
+  if(node->right != t->nil){
+    postorder(node->right, t);
+  }
+  free(node);
+}
+
 void delete_rbtree(rbtree *t) {
   // TODO: reclaim the tree nodes's memory
-  free(t);
-  
-  //postorder 함수로 만들고
-  
-  
-  // free(t->root);
-
-
+  if (t->root != t->nil){
+    postorder(t->root, t);
+  }
   free(t->nil);
+  free(t);
 }
 
 node_t *rbtree_insert(rbtree *t, const key_t key) {
