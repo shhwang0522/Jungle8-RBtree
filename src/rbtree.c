@@ -8,7 +8,7 @@ rbtree *new_rbtree(void) {
   nil_node->color = RBTREE_BLACK ;
   p->nil = nil_node;
   p->root = nil_node;
-  return  p;
+  return p;
 }
 
 void delete_rbtree(rbtree *t) {
