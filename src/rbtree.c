@@ -17,7 +17,7 @@ void postorder(struct node_t* node, rbtree* t){
   if (node->left != t->nil){
     postorder(node->left, t);
   }
-  else if(node->right != t->nil){
+  if(node->right != t->nil){
     postorder(node->right, t);
   }
   free(node);
@@ -94,7 +94,6 @@ void insert_fixup(rbtree *t, node_t* node_z){
         node_z->parent->parent->color = RBTREE_RED;
         right_rot(t, node_z->parent->parent);
       }
-      
     }
     else{
       node_y = node_z->parent->parent->left;
@@ -115,9 +114,7 @@ void insert_fixup(rbtree *t, node_t* node_z){
       }
     }
   }
-  
   t->root->color = RBTREE_BLACK;
-  // return node_z;
 }
 
 node_t *rbtree_insert(rbtree *t, const key_t key) { 
@@ -160,7 +157,7 @@ node_t *rbtree_insert(rbtree *t, const key_t key) {
 
 node_t *rbtree_find(const rbtree *t, const key_t key) {
   // TODO: implement find
-  struct node_t* node = t->root;
+  node_t* node = t->root;
   while(node != t->nil){
       if(node->key == key){
         return node;
@@ -177,10 +174,10 @@ node_t *rbtree_find(const rbtree *t, const key_t key) {
 
 node_t *rbtree_min(const rbtree *t) {
   // TODO: implement find
-  struct node_t *current = t->root;
+  node_t *current = t->root;
 
   while (current != t->nil && current->left != t->nil)
-    current = current->left;z
+    current = current->left;
   return current;
   // return t->root;
 }
@@ -311,16 +308,35 @@ int rbtree_erase(rbtree *t, node_t *z) {
     y->left = z->left;
     y->left->parent = y;
     y->color = z->color;
+
   }
   
   if (y_origin == RBTREE_BLACK){
-    
     del_fixup(t, x);
   }
+  free(z);
   return 0;
+ }
+
+void inorder(const rbtree *t, node_t* node, key_t *arr, const size_t n, int *i){
+  if (*i == n){
+    return;
+  }
+  if (node->left != t->nil){
+    inorder(t, node->left,  arr, n, i);
+  }
+  arr[*i] = node->key;
+  *i = *i + 1;
+  if(node->right != t->nil){
+    inorder(t, node->right, arr, n, i);
+  }
 }
 
 int rbtree_to_array(const rbtree *t, key_t *arr, const size_t n) {
   // TODO: implement to_array
+  int *i = calloc(1, sizeof(int));
+  *i = 0;
+  inorder(t, t->root, arr, n, i);
+  free(i);
   return 0;
 }
