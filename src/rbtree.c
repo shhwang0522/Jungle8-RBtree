@@ -7,7 +7,7 @@ rbtree *new_rbtree(void) {
   // TODO: initialize struct if needed
   struct node_t *nil_node = (node_t *)calloc(1, sizeof(node_t));
   nil_node->color = RBTREE_BLACK ;
- // 
+  
   p->nil = nil_node;
   p->root = nil_node;
   return p;
@@ -334,9 +334,8 @@ void inorder(const rbtree *t, node_t* node, key_t *arr, const size_t n, int *i){
 
 int rbtree_to_array(const rbtree *t, key_t *arr, const size_t n) {
   // TODO: implement to_array
-  int *i = calloc(1, sizeof(int));
-  *i = 0;
+  int a = 0;
+  int *i = &a;
   inorder(t, t->root, arr, n, i);
-  free(i);
   return 0;
 }
